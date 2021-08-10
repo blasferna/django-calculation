@@ -4,7 +4,9 @@ Make simple calculations in your django forms.
 
 ## Installation
 
-...
+```bash
+pip install git+https://github.com/blasferna/django-calculation.git#egg=django-calculation
+```
 
 ### Add `calculation` to your INSTALLED_APPS
 
