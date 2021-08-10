@@ -1,2 +1,3 @@
+recursive-include calculation *.py *.html *.css *.js *.po *.mo
 include LICENSE
 include README.md
