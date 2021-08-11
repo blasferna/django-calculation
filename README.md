@@ -52,7 +52,7 @@ class TestForm(forms.Form):
         widget=calculation.NumericCalculationInput(
             {
                 'mode': calculation.FORMULA,
-                'formula': 'parseFloat(amount/11).toFixed(2);'    
+                'formula': 'parseFloat(amount/11).toFixed(2)'    
             },
             attrs = {'disabled': True}
         )
