@@ -6,6 +6,9 @@
 
 Make simple calculations in your django forms.
 
+![chrome-capture](https://user-images.githubusercontent.com/8385910/129076392-9f255fe1-830c-456d-8852-717a4abeb5f6.gif)
+
+
 ## Installation
 
 ```bash
@@ -45,4 +48,14 @@ class TestForm(forms.Form):
             attrs = {'disabled': True}
         )
     )
+    tax = forms.DecimalField(
+        widget=calculation.NumericCalculationInput(
+            {
+                'mode': calculation.FORMULA,
+                'formula': 'parseFloat(amount/11).toFixed(2);'    
+            },
+            attrs = {'disabled': True}
+        )
+    )
+
 ```
