@@ -24,25 +24,25 @@ INSTALLED_APPS = [
 
 ## Usage
 
-Import `NumericCalculationInput` from `calculation.widgets` and complete the `calculation` attribute like this.
+Import `calculation` and complete the definition like this. The widget `NumericCalculationInput` 
+expects the calculation definition as the first argument.
 
 ```python
 from django import forms
 
-from calculation.widgets import NumericCalculationInput
+import calculation
+
 
 class TestForm(forms.Form):
     quantity = forms.DecimalField()
     price = forms.DecimalField()
     amount = forms.DecimalField(
-        widget=NumericCalculationInput(
-            attrs={
-                'calculation': {
-                    'mode': NumericCalculationInput.FORMULA,
-                    'formula': 'quantity*price'
-                }
-            }
+        widget=calculation.NumericCalculationInput(
+            {
+                'mode': calculation.FORMULA,
+                'formula': 'quantity*price'    
+            },
+            attrs = {'disabled': True}
         )
     )
-
 ```

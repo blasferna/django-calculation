@@ -2,23 +2,23 @@ import json
 
 from django import forms
 
+# modes
+FORMULA = 'formula'
+SUMMARY = 'summary'
+
+# contexts
+LOCAL = 'local'
+GLOBAL = 'global'
+
+# summary functions
+SUM = 'sum'
+AVG = 'avg'
+COUNT = 'count'
+MAX = 'max'
+MIN = 'min'
+
 
 class NumericCalculationInput(forms.NumberInput):
-    # constants
-    # modes
-    FORMULA = 'formula'
-    SUMMARY = 'summary'
-
-    LOCAL = 'local'
-    GLOBAL = 'global'
-
-    # summary functions
-    SUM = 'sum'
-    AVG = 'avg'
-    COUNT = 'count'
-    MAX = 'max'
-    MIN = 'min'
-    
     input_type = 'number'
     
     class Media:
@@ -26,20 +26,17 @@ class NumericCalculationInput(forms.NumberInput):
             'calculation/js/calculation.js',
         ]
     
-    def __init__(self, attrs=None):
-        # sum|avg|count|max|min"
-        calculation = {
+    def __init__(self, calculation, attrs=None):
+        default = {
             "mode": "formula",
             "formula": "",
             "summaryFunction": "",
             "summaryField": "",
-            "summaryContext": NumericCalculationInput.GLOBAL
+            "summaryContext": GLOBAL
         }
         if attrs is None: attrs = {}
-        if "calculation" in attrs:
-            if attrs['calculation']['mode'] != NumericCalculationInput.SUMMARY:
-                attrs['calculation']['summaryContext'] = ""
-            calculation.update(attrs['calculation'])
-            attrs['calculation'] = json.dumps(calculation)
+        if calculation['mode'] != SUMMARY:
+            calculation['summaryContext'] = ""
+        default.update(calculation)
+        attrs['data-calculation'] = json.dumps(default)
         super().__init__(attrs)
-

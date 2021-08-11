@@ -47,7 +47,7 @@
             this.summaryFields = this._getSummaryFields();
         },
         _parseDefinition: function () {
-            this.definition = JSON.parse(this.field.getAttribute("calculation"));
+            this.definition = JSON.parse(this.field.getAttribute("data-calculation"));
         },
         addDependency: function (obj) {
             this.dependencies.push(obj);
@@ -346,7 +346,7 @@
     }
     
     function configure(){
-        const fields = document.querySelectorAll("input[calculation]");
+        const fields = document.querySelectorAll("input[data-calculation]");
         fields.forEach(function (field) {
             let instance = new CalculatedField(field.getAttribute("id"));
             instance.init();
