@@ -96,3 +96,47 @@ total = forms.DecimalField(
         }
     )
 ```
+
+#### Summary example
+
+Summary definition in `OrderForm`
+
+```python
+class OrderForm(forms.ModelForm):
+    total = forms.DecimalField(
+        widget=calculation.NumericCalculationInput(
+            {
+                'mode': calculation.SUMMARY,
+                'summaryFunction': calculation.SUM,
+                # subtotal field is in OrderDetForm, subtotal also is a calculated field
+                'summaryField': 'subtotal'
+            },
+            attrs={'disabled': True}
+        )
+    )
+    class Meta:
+        model = Order
+        fields = ['date', 'customer']
+```
+
+`OrderDetForm` also contain a calculated field `subtotal`.
+```python
+class OrderDetForm(forms.ModelForm):
+    subtotal = forms.DecimalField(
+        widget=calculation.NumericCalculationInput(
+            {
+                'mode': calculation.FORMULA,
+                'formula': 'quantity*price'    
+            },
+            attrs = {'disabled': True}
+        )
+    )
+    class Meta:
+        model = OrderDet
+        fields = ['product', 'price', 'quantity', 'subtotal']
+
+# formset definition
+OrderDetFormSet = forms.inlineformset_factory(Order, OrderDet, OrderDetForm)
+```
+
+![chrome-capture](https://user-images.githubusercontent.com/8385910/129214716-e3876719-1912-49b0-989f-125e724dfb92.gif)
