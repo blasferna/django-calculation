@@ -72,7 +72,7 @@
             this.formSetNumber = match.groups.number;
         },
         _isFormSet: function () {
-            return this.field.name.includes("form-");
+            return this.field.name.includes("form-") || this.field.name.includes("_set-");
         },
         _getFieldsInFormula: function () {
             let fields = {};
