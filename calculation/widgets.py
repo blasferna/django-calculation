@@ -18,14 +18,7 @@ MAX = 'max'
 MIN = 'min'
 
 
-class NumericCalculationInput(forms.NumberInput):
-    input_type = 'number'
-    
-    class Media:
-        js = [
-            'calculation/js/calculation.js',
-        ]
-    
+class CalculationInputMixin:
     def __init__(self, calculation, attrs=None):
         default = {
             "mode": "formula",
@@ -40,3 +33,55 @@ class NumericCalculationInput(forms.NumberInput):
         default.update(calculation)
         attrs['data-calculation'] = json.dumps(default)
         super().__init__(attrs)
+
+
+class CalculationNumberInput(CalculationInputMixin, forms.NumberInput):    
+    class Media:
+        js = [
+            'calculation/js/calculation.js',
+        ]
+
+
+class FormulaInput(CalculationNumberInput):
+    def __init__(self, formula, attrs=None):
+        definition = {
+            "mode": FORMULA,
+            "formula": formula
+        }
+        super().__init__(definition, attrs)
+
+
+class SummaryInput(CalculationNumberInput):
+    def __init__(self, function, field, context=GLOBAL, attrs=None):
+        definition = {
+            "mode": SUMMARY,
+            "summaryFunction": function,
+            "summaryField": field,
+            "summaryContext": context
+        }
+        super().__init__(definition, attrs)
+
+
+class SumInput(SummaryInput):
+    def __init__(self, field, context=GLOBAL, attrs=None):
+        super().__init__(SUM, field, context, attrs)
+
+
+class AvgInput(SummaryInput):
+    def __init__(self, field, context=GLOBAL, attrs=None):
+        super().__init__(AVG, field, context, attrs)
+
+
+class CountInput(SummaryInput):
+    def __init__(self, field, context=GLOBAL, attrs=None):
+        super().__init__(AVG, field, context, attrs)
+
+
+class MaxInput(SummaryInput):
+    def __init__(self, field, context=GLOBAL, attrs=None):
+        super().__init__(MAX, field, context, attrs)
+
+
+class MinInput(SummaryInput):
+    def __init__(self, field, context=GLOBAL, attrs=None):
+        super().__init__(MIN, field, context, attrs)

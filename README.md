@@ -29,10 +29,11 @@ INSTALLED_APPS = [
 
 ## Usage
 
-Import `calculation` and complete the definition. The widget `NumericCalculationInput` 
-expects the calculation definition as the first argument.
+Import `calculation` and complete the definition. 
 
 ### Example
+
+Using `FormulaInput` widget
 
 ```python
 from django import forms
@@ -42,24 +43,13 @@ import calculation
 
 class TestForm(forms.Form):
     quantity = forms.DecimalField()
-    price = forms.DecimalField()
+    price = forms.DecimalField()parseFloat(amount/11).toFixed(2)
     amount = forms.DecimalField(
-        widget=calculation.NumericCalculationInput(
-            {
-                'mode': calculation.FORMULA,
-                'formula': 'quantity*price'  #<-- using single math expresion.
-            },
-            attrs = {'disabled': True}
-        )
+        widget=calculation.FormulaInput('quantity*price') # <- using single math expression
     )
+
     tax = forms.DecimalField(
-        widget=calculation.NumericCalculationInput(
-            {
-                'mode': calculation.FORMULA,
-                'formula': 'parseFloat(amount/11).toFixed(2)' #<-- using math expression and javascript functions.  
-            },
-            attrs = {'disabled': True}
-        )
+        widget=calculation.FormulaInput('parseFloat(amount/11).toFixed(2)') # <-- using math expression and javascript functions. 
     )
 
 ```
@@ -74,12 +64,8 @@ The field value derive from a formula expression. In the expression you can refe
 
 ```python
 amount = forms.DecimalField(
-    widget=calculation.NumericCalculationInput(
-        {
-            'mode': calculation.FORMULA,
-            'formula': 'quantity*price' 
-        }
-    )
+    widget=calculation.FormulaInput('quantity*price')
+)
 ```
 
 ***`SUMMARY`*** 
@@ -88,12 +74,9 @@ The field value derive from a summary definition, it is useful when you need to 
 
 ```python
 total = forms.DecimalField(
-    widget=calculation.NumericCalculationInput(
-        {
-            'mode': calculation.SUMMARY,
-            'summaryFunction': calculation.SUM,
-            'summaryField': 'amount' 
-        }
+    widget=calculation.SummaryInput(
+            function=calculation.SUM,
+            field='amount' 
     )
 ```
 
@@ -104,15 +87,8 @@ Summary definition in `OrderForm`
 ```python
 class OrderForm(forms.ModelForm):
     total = forms.DecimalField(
-        widget=calculation.NumericCalculationInput(
-            {
-                'mode': calculation.SUMMARY,
-                'summaryFunction': calculation.SUM,
-                # subtotal field is in OrderDetForm, subtotal also is a calculated field
-                'summaryField': 'subtotal'
-            },
-            attrs={'disabled': True}
-        )
+        # using SumInput a SummaryInput abstraction
+        widget=calculation.SumInput('subtotal')
     )
     class Meta:
         model = Order
@@ -123,13 +99,7 @@ class OrderForm(forms.ModelForm):
 ```python
 class OrderDetForm(forms.ModelForm):
     subtotal = forms.DecimalField(
-        widget=calculation.NumericCalculationInput(
-            {
-                'mode': calculation.FORMULA,
-                'formula': 'quantity*price'    
-            },
-            attrs = {'disabled': True}
-        )
+        widget=calculation.FormulaInput('quantity*price')
     )
     class Meta:
         model = OrderDet
