@@ -1,7 +1,7 @@
 # django-calculation
 
 [![Release](https://github.com/blasferna/django-calculation/actions/workflows/release.yml/badge.svg)](https://github.com/blasferna/django-calculation/actions/workflows/release.yml)
-[![PyPI version](https://badge.fury.io/py/django-calculation.svg)](https://badge.fury.io/py/django-calculation)
+[![PyPI version](https://img.shields.io/pypi/v/django-calculation.svg?color=success)](https://pypi.python.org/pypi/django-calculation)
 ![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-calculation) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-calculation)
 
 Make simple calculations in your django forms using `django-calculation`. This app provide a **[Django Widget](https://docs.djangoproject.com/en/3.2/ref/forms/widgets/)** that derives its value from a expression defined in the widget instance. 
