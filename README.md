@@ -43,7 +43,7 @@ import calculation
 
 class TestForm(forms.Form):
     quantity = forms.DecimalField()
-    price = forms.DecimalField()parseFloat(amount/11).toFixed(2)
+    price = forms.DecimalField()
     amount = forms.DecimalField(
         widget=calculation.FormulaInput('quantity*price') # <- using single math expression
     )
