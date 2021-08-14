@@ -19,7 +19,7 @@ MIN = 'min'
 
 
 class CalculationInputMixin:
-    def __init__(self, calculation, attrs=None):
+    def __init__(self, calculation, attrs=None, **kwargs):
         default = {
             "mode": "formula",
             "formula": "",
@@ -32,7 +32,7 @@ class CalculationInputMixin:
             calculation['summaryContext'] = ""
         default.update(calculation)
         attrs['data-calculation'] = json.dumps(default)
-        super().__init__(attrs)
+        super().__init__(attrs=attrs, **kwargs)
 
 
 class CalculationNumberInput(CalculationInputMixin, forms.NumberInput):    
