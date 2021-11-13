@@ -54,6 +54,18 @@ class TestForm(forms.Form):
 
 ```
 
+`django-calculation` works with static files and therefore it is necessary to include the media of the form in the template file.
+
+```
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+{{ form.media }}
+```
+
 ### Modes
 
 Currently the app support two modes of calculation `FORMULA` and `SUMMARY`.
