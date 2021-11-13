@@ -56,7 +56,7 @@ class TestForm(forms.Form):
 
 `django-calculation` works with static files and therefore it is necessary to include the media of the form in the template file.
 
-```
+```html
 <form method="post">
     {% csrf_token %}
     {{ form }}
