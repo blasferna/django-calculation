@@ -122,3 +122,11 @@ OrderDetFormSet = forms.inlineformset_factory(Order, OrderDet, OrderDetForm)
 ```
 
 ![chrome-capture](https://user-images.githubusercontent.com/8385910/129214716-e3876719-1912-49b0-989f-125e724dfb92.gif)
+
+
+## Roadmap
+
+- Create demo project.
+- Create documentation.
+- Add changelog.
+- Create minified version of `calculation.js` for production usage.
