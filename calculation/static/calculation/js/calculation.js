@@ -124,18 +124,33 @@
             return deleted;
         },
         _getUnmaskedValue(element) {
-            let value = element.hasOwnProperty('inputmask') ? element.inputmask.unmaskedvalue() : element.value;
-            return element.hasOwnProperty('inputmask') ? value.toString().replace(',', '.') : value;
+            let value = element.inputmask.unmaskedvalue();
+            return value.toString().replace(',', '.');
+        },
+        _getValue: function(element) {
+            if (element.hasOwnProperty('inputmask')){
+                return this._getUnmaskedValue(element);
+            }else{
+                if (element.type == 'checkbox'){
+                    return element.checked;
+                }else{
+                    return element.value;
+                }
+            }
         },
         _getValues: function () {
             let values = [];
             if (this.summaryFields.length > 0) {
                 let that = this;
                 this.summaryFields.forEach(function (element) {
-                    let value = that._getUnmaskedValue(element);
+                    let value = that._getValue(element);
                     let deleted = that._isFormSetRowDeleted(element);
-                    if (value.length > 0 && deleted === false) {
-                        values.push(parseFloat(value));
+                    if (typeof value != "boolean") {
+                        if (value.length > 0 && deleted === false) {
+                            values.push(parseFloat(value));
+                        }
+                    }else{
+                        values.push(value);
                     }
                 });
             }
@@ -160,7 +175,7 @@
                 let parsedFormula = this.definition.formula;
                 for (let [key, value] of Object.entries(this.fieldsInFormula)) {
                     let name = this.isFormSet ? value.element.name.replaceAll(this.formSetKey, "") : value.element.name;
-                    parsedFormula = parsedFormula.replaceAll(name, this._getUnmaskedValue(value.element));
+                    parsedFormula = parsedFormula.replaceAll(name, this._getValue(value.element));
                 };
                 try {
                     this.field.value = eval(parsedFormula);
@@ -301,10 +316,19 @@
         calculatedSrcFields.forEach(function (element) {
             if (element) {
                 if (mode === 'add'){
-                    element.addEventListener("blur", handleBlurCb);
+                    if (element.type == 'checkbox'){
+                        element.addEventListener("change", handleBlurCb);
+                    }else{
+                        element.addEventListener("blur", handleBlurCb);
+                    }
                 }
                 if (mode === 'remove'){
-                    element.removeEventListener("blur", handleBlurCb);
+                    if (element.type == 'checkbox'){
+                        element.removeEventListener("change", handleBlurCb);
+                    }else{
+                        element.removeEventListener("blur", handleBlurCb);
+                    }
+                    
                 }
             }
         });
