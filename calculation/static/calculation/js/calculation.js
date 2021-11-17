@@ -79,7 +79,9 @@
             let rawList = this.definition.formula.match(regexp);
             if (rawList) {
                 // TODO: move to regexp
-                rawList = rawList.filter(function(e){return e != 'this'});
+                rawList = rawList.filter(function (e) {
+                    return e != 'this'
+                });
                 for (let index = 0; index < rawList.length; index++) {
                     let name = this.isFormSet ? `${this.formSetKey}${rawList[index]}` : rawList[index];
                     let field = this.parent.querySelector('input[name=' + name + ']');
@@ -127,13 +129,13 @@
             let value = element.inputmask.unmaskedvalue();
             return value.toString().replace(',', '.');
         },
-        _getValue: function(element) {
-            if (element.hasOwnProperty('inputmask')){
+        _getValue: function (element) {
+            if (element.hasOwnProperty('inputmask')) {
                 return this._getUnmaskedValue(element);
-            }else{
-                if (element.type == 'checkbox'){
+            } else {
+                if (element.type == 'checkbox') {
                     return element.checked;
-                }else{
+                } else {
                     return element.value;
                 }
             }
@@ -149,7 +151,7 @@
                         if (value.length > 0 && deleted === false) {
                             values.push(parseFloat(value));
                         }
-                    }else{
+                    } else {
                         values.push(value);
                     }
                 });
@@ -305,8 +307,8 @@
             obj.executeAll();
         }
     }
-    
-    
+
+
     /**
      *   Configure: add or remove events
      *   
@@ -315,20 +317,20 @@
     function configureEvents(mode) {
         calculatedSrcFields.forEach(function (element) {
             if (element) {
-                if (mode === 'add'){
-                    if (element.type == 'checkbox'){
+                if (mode === 'add') {
+                    if (element.type == 'checkbox') {
                         element.addEventListener("change", handleBlurCb);
-                    }else{
+                    } else {
                         element.addEventListener("blur", handleBlurCb);
                     }
                 }
-                if (mode === 'remove'){
-                    if (element.type == 'checkbox'){
+                if (mode === 'remove') {
+                    if (element.type == 'checkbox') {
                         element.removeEventListener("change", handleBlurCb);
-                    }else{
+                    } else {
                         element.removeEventListener("blur", handleBlurCb);
                     }
-                    
+
                 }
             }
         });
@@ -340,16 +342,16 @@
         });
         formsetDeleteButtons.forEach(function (element) {
             if (element) {
-                if (mode === 'add'){
-                    element.addEventListener("change", handleBlurCb);   
+                if (mode === 'add') {
+                    element.addEventListener("change", handleBlurCb);
                 }
-                if (mode === 'remove'){
+                if (mode === 'remove') {
                     element.removeEventListener("change", handleBlurCb);
                 }
             }
         });
     };
-    
+
     function addEvents() {
         configureEvents('add');
     }
@@ -358,9 +360,9 @@
         configureEvents('remove');
     }
 
-    function findDynamicFormsets(){
+    function findDynamicFormsets() {
         let elements = document.querySelectorAll("[data-formset-prefix]");
-        elements.forEach(function(element){
+        elements.forEach(function (element) {
             let obj = {
                 "prefix": element.getAttribute('data-formset-prefix'),
                 "containerElement": element
@@ -368,8 +370,8 @@
             dynamicFormsets.push(obj);
         });
     }
-    
-    function configure(){
+
+    function configure() {
         const fields = document.querySelectorAll("input[data-calculation]");
         fields.forEach(function (field) {
             let instance = new CalculatedField(field.getAttribute("id"));
@@ -379,10 +381,10 @@
         resolveDependencies();
         sortExecution();
         findSrcFields();
-        addEvents();        
+        addEvents();
     }
-    
-    window.resetCalculatedFields = function(){
+
+    window.resetCalculatedFields = function () {
         removeEvents();
         calculatedFields = [];
         calculatedSrcFields = [];
