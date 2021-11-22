@@ -8,7 +8,8 @@ Make simple calculations in your django forms using `django-calculation`. This a
 
 The field is updated when any of the source fields change.
 
-![chrome-capture](https://user-images.githubusercontent.com/8385910/129076392-9f255fe1-830c-456d-8852-717a4abeb5f6.gif)
+![calculation](https://user-images.githubusercontent.com/8385910/142947517-49a5d6a0-6a6c-41d6-8f14-a140ad44fa1e.gif)
+
 
 
 ## Installation
@@ -47,9 +48,10 @@ class TestForm(forms.Form):
     amount = forms.DecimalField(
         widget=calculation.FormulaInput('quantity*price') # <- using single math expression
     )
-
+    apply_taxes = forms.BooleanField(initial=True)
     tax = forms.DecimalField(
-        widget=calculation.FormulaInput('parseFloat(amount/11).toFixed(2)') # <-- using math expression and javascript functions. 
+        # using math expression and javascript functions.
+        widget=calculation.FormulaInput('apply_taxes ? parseFloat(amount/11).toFixed(2) : 0.0') 
     )
 
 ```
