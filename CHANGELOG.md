@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.10 (2021-11-22)
+* Add support for Python 3.10.
+* Add checkbox support, now a checkbox can be referenced from a formula.
+
 ## 0.0.9 (2021-09-01)
 * Add default kwargs to CalculationInputMixin.
 
