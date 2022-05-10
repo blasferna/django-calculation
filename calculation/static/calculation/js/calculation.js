@@ -309,6 +309,7 @@
         for (let index = 0; index < calculatedFields.length; index++) {
             let obj = calculatedFields[index];
             obj.executeAll();
+            obj.field.dispatchEvent(new Event('oncalculate'));
         }
     }
 
