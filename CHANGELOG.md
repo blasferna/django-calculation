@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Next Release
+* Add support for Django 4.0.
+* Fix Uncaught TypeError: value.element is null (#5)
+
 ## 0.0.10 (2021-11-22)
 * Add support for Python 3.10.
 * Add checkbox support, now a checkbox can be referenced from a formula (#2).
