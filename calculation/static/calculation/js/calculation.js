@@ -84,6 +84,10 @@
                 });
                 for (let index = 0; index < rawList.length; index++) {
                     let name = this.isFormSet ? `${this.formSetKey}${rawList[index]}` : rawList[index];
+                    // Check if the element does not exists
+                    if (!this.parent.querySelector('input[name=' + name + ']')){
+                        name = rawList[index];
+                    }
                     let field = this.parent.querySelector('input[name=' + name + ']');
                     fields[name] = {
                         "element": field
