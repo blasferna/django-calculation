@@ -2,7 +2,8 @@
 
 ## Next Release
 * Add support for Django 4.0.
-* Fix Uncaught TypeError: value.element is null (#5)
+* Fix Uncaught TypeError: value.element is null (#5).
+* `oncalculate` event created.
 
 ## 0.0.10 (2021-11-22)
 * Add support for Python 3.10.
