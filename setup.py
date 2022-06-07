@@ -5,7 +5,7 @@ setup(
     name="django-calculation",
     packages=["calculation"],
     include_package_data=True,
-    version="0.0.10",
+    version="1.0.0",
     description="A Django app to make simple calculations in your django forms",
     long_description=open("README.md").read(),
 	long_description_content_type="text/markdown",

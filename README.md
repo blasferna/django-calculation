@@ -130,5 +130,4 @@ OrderDetFormSet = forms.inlineformset_factory(Order, OrderDet, OrderDetForm)
 
 - Create demo project.
 - Create documentation.
-- Add changelog.
-- Create minified version of `calculation.js` for production usage.
+- <del> Add changelog. </del>

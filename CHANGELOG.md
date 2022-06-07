@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Next Release
+## 1.0.0 (2022-06-07)
 * Add support for Django 4.0.
 * Fix Uncaught TypeError: value.element is null (#5).
 * `oncalculate` event created.
